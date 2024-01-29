@@ -6,11 +6,22 @@ export const useAudioChatStore = defineStore('audioChat', () => {
   const transcript = ref('')
 
   function transcribeFile() {
-    
+    const formData = new FormData()
+    formData.append('file', file.value.value)
+
+    fetch('http://localhost:3080/dg-transcription', {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        transcript.value = ???
+      })
   }
 
   return {
     file,
-    transcript
+    transcript,
+    transcribeFile
   }
 })
