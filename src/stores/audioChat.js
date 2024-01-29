@@ -23,6 +23,7 @@ export const useAudioChatStore = defineStore('audioChat', () => {
   }
 
   function createPrompt() {
+    prompt.value = []
     const instructions = {
       role: 'system',
       content: 'You will answer questions about the following text that has been transcribed from an audio file'
