@@ -94,6 +94,26 @@ let chainNum = 0
 app.post('/chain', async (req, res) => {
   chainNum++
   const messages = req.body.messages
+
+  if (chainNum === 1) {
+    const firstResponse = await chain.call({ input: messages[0].content })
+    console.log(firstResponse)
+    const secondResponse = await chain.call({ input: messages[1].content })
+    console.log(secondResponse)
+    const thirdResponse = await chain.call({ input: messages[2].content })
+
+    return res.status(200).json({
+      success: true,
+      message: thirdResponse.response
+    })
+  } else {
+    const nextResponse = await chain.call({ input: messages[2].content })
+    console.log(nextResponse)
+    return res.status(200).json({
+      success: true,
+      message: nextResponse.response
+    })
+  }
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
