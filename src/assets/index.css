@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  background-color: #101014;
+}
+
+body {
+  background-color: #101014;
+}
+
+#app {
+  background-color: #101014;
+  color: #e9e5df;
+  font-weight: normal;
+}
+
+nav {
+  background-image: linear-gradient(
+      to right,
+      #2a013d,
+      #101014 3%,
+      #101014,
+      #101014,
+      #101014,
+      #2a013d 110%
+  );
+  color: #e9e5df;
+  @apply border-b border-purple-400 font-bold;
+  @apply w-screen;
+  @apply py-4 px-10;
+  @apply flex justify-between;
+}
+
+main {
+  margin: 0 auto;
+  @apply max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-7xl;
+  @apply pt-10;
+}
+
+article {
+  @apply h-[650px] lg:h-[564px];
+}
+
+.button,
+button[type='submit'] {
+  @apply flex items-center justify-center text-center;
+  @apply py-1 px-6;
+  @apply rounded-md;
+  @apply h-8 min-w-min;
+  @apply cursor-pointer;
+}
+
+.button-primary,
+button[type='submit'] {
+  @apply text-[#e9e5df] font-semibold;
+  @apply border-[#42b983] border;
+}
+
+.chat-button:hover {
+  @apply bg-[#42b983];
+}
+
+.chat-button span:hover {
+  @apply bg-[#42b983];
+}
+
+.button-primary:hover {
+  @apply text-white;
+  @apply bg-[#42b983];
+}
+
+.button-secondary {
+  @apply border-[#7686FF] border text-[#e9e5df] font-bold;
+}
+
+.button-secondary:hover {
+  @apply bg-[#658efd] text-[#eef1fb];
+}
+
+.button-large {
+  @apply py-8 px-6;
+  @apply text-2xl text-[#e9e5df];
+  @apply border-[#42b983] border;
+}
+
+.button-large:hover {
+  @apply py-8 px-6;
+  @apply text-2xl text-white;
+  @apply bg-[#42b983];
+}
+
+.question-input {
+  @apply block w-full rounded-none rounded-l-md border-0 py-1.5 text-gray-100 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6;
+}
+
+input {
+  background-color: #1a1a21;
+  color: #e9e5df;
+  @apply border-slate-500 border rounded-sm;
+  @apply h-8;
+  @apply p-2;
+}
+
+textarea {
+  color: #e9e5df;
+  background-color: #1a1a21;
+}
+
+h1 {
+  @apply text-[3rem] xl:text-2xl;
+  @apply font-bold;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
