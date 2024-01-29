@@ -4,6 +4,9 @@ import {ref} from "vue";
 export const useAudioChatStore = defineStore('audioChat', () => {
   const file = ref({})
   const transcript = ref('')
+  const prompt = ref([])
+  const question = ref('')
+  const questionAnswerList = ref([])
 
   function transcribeFile() {
     const formData = new FormData()
@@ -19,9 +22,49 @@ export const useAudioChatStore = defineStore('audioChat', () => {
       })
   }
 
+  function createPrompt() {
+    const instructions = {
+      role: 'system',
+      content: 'You will answer questions about the following text that has been transcribed from an audio file'
+    }
+    const transcriptToAnalyze = { role: 'user', content: transcript.value }
+    const chatQuestion = { role: 'user', content: question.value }
+
+    //create prompt array
+    prompt.value.push(instructions)
+    prompt.value.push(transcriptToAnalyze)
+    prompt.value.push(chatQuestion)
+
+    sendPrompt()
+  }
+
+  function sendPrompt() {
+    fetch('http://localhost:3080/chat', {
+      method: 'POST',
+      body: JSON.stringify({
+        messages: prompt.value
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        questionAnswerList.value.push({
+          question: question.value,
+          answer: data.message.content
+        })
+        question.value = ''
+      })
+  }
+
   return {
     file,
     transcript,
-    transcribeFile
+    transcribeFile,
+    prompt,
+    question,
+    questionAnswerList,
+    createPrompt
   }
 })

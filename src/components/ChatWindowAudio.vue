@@ -25,6 +25,10 @@
           </button>
         </div>
         <!-- Chat UI -->
+        <div v-for="(chat, i) in audioChatStore.questionAnswerList" :key="chat.question">
+          <p class="font-bold">Question {{ i + 1 }}: {{ chat.question }}</p>
+          <p class="block w-full rounded-md border-0 bg-green-900 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:p-4 sm:text-sm sm:leading-6 text-sm my-4">{{ chat.answer }}</p>
+        </div>
       </div>
     </div>
   </div>
