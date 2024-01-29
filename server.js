@@ -82,4 +82,18 @@ app.post('/dg-transcription', upload.single('file'), async (req, res) => {
   }
 })
 
+const { OpenAI } = require('langchain/llms/openai')
+const { BufferMemory } = require('langchain/memory')
+const { ConversationChain } = require('langchain/chains')
+
+const model = new OpenAI({})
+const memory = new BufferMemory()
+const chain = new ConversationChain({ llm: model, memory: memory })
+let chainNum = 0
+
+app.post('/chain', async (req, res) => {
+  chainNum++
+  const messages = req.body.messages
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
