@@ -1,5 +1,6 @@
 <script setup>
   import { useFileDialog } from "@vueuse/core"
+  
   const { files, open, reset, onChange } = useFileDialog()
 
   function resetFile() {
