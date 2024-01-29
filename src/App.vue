@@ -22,7 +22,7 @@
       </svg>
     </router-link>
     <ul class="flex xl:text-2xl">
-      <router-link to="/" class="px-2">text</router-link>
+      <router-link to="/text" class="px-2">text</router-link>
     </ul>
   </nav>
   <main>
