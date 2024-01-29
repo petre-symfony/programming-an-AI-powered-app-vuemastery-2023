@@ -1,11 +1,17 @@
 <script setup>
   import { useFileDialog } from "@vueuse/core"
-  
+  import { useAudioChatStore } from "@/stores/audioChat.js"
+
+  const audioChatStore = useAudioChatStore()
   const { files, open, reset, onChange } = useFileDialog()
 
   function resetFile() {
     reset()
   }
+
+  onChange((file) => {
+    audioChatStore.file.value = file[0]
+  })
 </script>
 
 <template>
