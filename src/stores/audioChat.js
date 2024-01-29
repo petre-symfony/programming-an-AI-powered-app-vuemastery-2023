@@ -59,6 +59,14 @@ export const useAudioChatStore = defineStore('audioChat', () => {
       })
   }
 
+  function clearChat() {
+    file.value = {}
+    prompt.value = []
+    transcript.value = ''
+    question.value = ''
+    questionAnswerList.value = []
+  }
+
   return {
     file,
     transcript,
@@ -66,6 +74,7 @@ export const useAudioChatStore = defineStore('audioChat', () => {
     prompt,
     question,
     questionAnswerList,
-    createPrompt
+    createPrompt,
+    clearChat
   }
 })
