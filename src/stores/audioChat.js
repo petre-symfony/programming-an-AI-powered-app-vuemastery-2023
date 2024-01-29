@@ -15,7 +15,7 @@ export const useAudioChatStore = defineStore('audioChat', () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        transcript.value = ???
+        transcript.value = data.transcript.results.channels[0].alternatives[0].transcript
       })
   }
 
