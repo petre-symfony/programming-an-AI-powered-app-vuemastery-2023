@@ -14,4 +14,28 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
+app.post('/chat', async (req, res) => {
+  const messages = req.body.messages
+
+  try {
+    if (messages == null) {
+      throw new Error('We have a ptoblem - no prompt was provided')
+    }
+
+    const response = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages
+    })
+
+    const completion = response.data.choices[0].message
+
+    return res.status(200).json({
+      success: true,
+      message: completion
+    })
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
