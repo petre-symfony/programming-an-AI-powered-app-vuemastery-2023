@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from "vue"
-import {response} from "express"
+import { useTokenizeStore } from "@/stores/tokenize.js"
 
 export const useTextChatStore = defineStore('textChat', () => {
   const text = ref('');
   const question = ref('');
   const prompt = ref([])
   const gptResponse = ref('')
+  const tokenizeStore = useTokenizeStore()
 
   function createPrompt() {
     const instructions = {
@@ -20,6 +21,8 @@ export const useTextChatStore = defineStore('textChat', () => {
     prompt.value.push(instructions)
     prompt.value.push(textToAnalyze)
     prompt.value.push(chatQuestion)
+
+    tokenizeStore.checkToken(instructions.content + textToAnalyze.content + chatQuestion.content)
   }
 
   function sendPrompt() {
