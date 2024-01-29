@@ -43,7 +43,10 @@ export const useTextChatStore = defineStore('textChat', () => {
   }
 
   function clearChat() {
-
+    text.value = ''
+    question.value = ''
+    prompt.value = []
+    gptResponse.value = ''
   }
 
   return {
