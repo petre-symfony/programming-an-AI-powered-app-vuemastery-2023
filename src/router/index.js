@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
 import TextView from "@/views/TextView.vue"
+import AudioView from "@/views/AudioView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/text',
       name: 'text',
       component: TextView
+    },
+    {
+      path: '/audio',
+      name: 'audio',
+      component: AudioView
     }
   ]
 })
