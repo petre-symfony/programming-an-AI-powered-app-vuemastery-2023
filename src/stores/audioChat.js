@@ -39,7 +39,7 @@ export const useAudioChatStore = defineStore('audioChat', () => {
   }
 
   function sendPrompt() {
-    fetch('http://localhost:3080/chat', {
+    fetch('http://localhost:3080/chain', {
       method: 'POST',
       body: JSON.stringify({
         messages: prompt.value
@@ -52,7 +52,7 @@ export const useAudioChatStore = defineStore('audioChat', () => {
       .then((data) => {
         questionAnswerList.value.push({
           question: question.value,
-          answer: data.message.content
+          answer: data.message
         })
         question.value = ''
       })
