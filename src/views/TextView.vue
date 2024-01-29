@@ -1,6 +1,9 @@
 <script setup>
   import { useTextChatStore } from "@/stores/textChat.js"
+  import { useTokenizeStore } from "@/stores/tokenize.js"
+
   const textChatStore = useTextChatStore()
+  const tokenizeStore = useTokenizeStore()
 
   function sendQuestion() {
     textChatStore.createPrompt()
@@ -49,6 +52,9 @@
       >
         {{ textChatStore.gptResponse }}
       </div>
+    </div>
+    <div v-if="tokenizeStore.tokenLength" class="text-xs mt-1">
+      Token length: {{ tokenizeStore.tokenLength }}
     </div>
   </article>
   <div class="flex justify-end">
