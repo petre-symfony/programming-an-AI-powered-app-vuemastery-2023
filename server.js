@@ -125,24 +125,34 @@ app.get('/clear-chain', async (req, res) => {
   })
 })
 
-const Replicate = require('replicate')
-const replicate = new Replicate({
-  auth: process.env.replicate
+const Replicate = require('langchain/llms/replicate')
+
+const replicateModel = new Replicate({
+  miniGPT: 'daanelson/minigpt-4:b96a2f33cc8e4b0aa23eacfce731b9c41a7d9466d9ed4e167375587b54db9423',
+  apiKey: process.env.replicate
 })
 
-const miniGPT = 'daanelson/minigpt-4:b96a2f33cc8e4b0aa23eacfce731b9c41a7d9466d9ed4e167375587b54db9423'
+const replicateMemory = new BufferMemory()
+const replicateChain = new ConversationChain({llm: replicateModel, memory: replicateMemory})
+let replicateChainNum = 0
 
-app.post('/minigpt', async (req, res) => {
-  try {
-    const miniGPTResponse = await replicate.run(miniGPT, {
-      input: {
-        image: req.body.image,
-        req: req.body.prompt
-      }
+app.post('/replicate-chain', async (req, res) => {
+  replicateChainNum++
+
+  if (replicateChainNum === 1) {
+    replicateModel.input.image = req.body.image
+    const firstResponse = await replicateChain.call({ input: req.body.prompt })
+    return res.status(200).json({
+      success: true,
+      message: firstResponse.response
     })
-    res.send({ message: miniGPTResponse})
-  } catch (e) {
-    console.log('error', e)
+  } else {
+    const nextResponse = await replicateChain.call({ input: req.body.prompt })
+    return res.status(200).json({
+      success: true,
+      message: nextResponse.response
+    })
   }
 })
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
